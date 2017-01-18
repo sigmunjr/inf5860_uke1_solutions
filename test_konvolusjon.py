@@ -9,6 +9,7 @@ def test_sobel_filter():
   out = sobel_filter(img)
   out -= out.min()
   out /= out.max()
+  out = (255*out).astype(np.uint8)
   correct = imread('sobel_lena.png')
   assert np.abs(out - correct).sum() == 0
 
