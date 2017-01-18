@@ -21,7 +21,7 @@ def math3(mat):
   return mat.sum(0)
 
 
-def math5(mat):
+def math4(mat):
   """
   Return a scaled version of mat, so that it sums to 1
   """
@@ -32,14 +32,14 @@ def math5(mat, v):
   """
   Element-wise multiply each column in mat with vector v
   """
-  return mat*v[np.newaxis]
+  return mat*v[:, np.newaxis]
 
 
 def math6(mat, v):
   """
   Element-wise multiply each row in mat with vector v
   """
-  return mat*v[:, np.newaxis]
+  return mat*v[np.newaxis]
 
 
 def math7(mat, v):
