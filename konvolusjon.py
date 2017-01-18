@@ -1,11 +1,9 @@
 import numpy as np
 from matplotlib import pyplot as plt
-from skimage.io import imread
-from numba import jit #Bruk numba, hvis man har darlig tid
 import time
 
 def main():
-  img = imread('lena.jpg').astype(np.float)/255
+  img = plt.imread('lena.png')#.astype(np.float)/255
   plt.imshow(img)
 
   start = time.time()
@@ -19,24 +17,12 @@ def main():
   plt.show()
 
 
-def blur_filter(img):
-  k_size = 11
-  kernel = np.ones((k_size, k_size))/k_size**2
-  return convolution(img, kernel[::-1, ::-1])
-
-
-def sobel_filter(img):
-  kernel = [[1, 2, 1],
-            [0, 0, 0],
-            [-1, -2, -1]]
-  kernel = np.array(kernel)
-  return convolution(img, kernel[::-1, ::-1])
-
-
-@jit(nopython=True)
 def convolution(image, kernel):
+  """
+  Write a general function to convolve an image with an arbitrary kernel.
+  """
   out = np.zeros(image.shape)
-  #Flipping kernel to follow convention
+  kernel = kernel[::-1, ::-1] #Flipping kernel to follow convention
   N, M, C = image.shape
   Nk, Mk = kernel.shape
   nk_2 = Nk // 2
@@ -46,6 +32,29 @@ def convolution(image, kernel):
       for c in range(C):
         out[i, j, c] = np.sum((image[i-nk_2:i+nk_2+1, j-nk_2:j+nk_2+1, c]*kernel))
   return out
+
+
+def blur_filter(img):
+  """
+  Use your convolution function to filter your image with an average filter (box filter)
+  with kernal size of 11.
+  """
+  k_size = 11
+  kernel = np.ones((k_size, k_size))/k_size**2
+  return convolution(img, kernel)
+
+
+def sobel_filter(img):
+  """
+  Use your convolution function to filter your image with a sobel operator
+  """
+  kernel = [[1, 2, 1],
+            [0, 0, 0],
+            [-1, -2, -1]]
+  kernel = np.array(kernel)
+  return convolution(img, kernel)
+
+
 
 
 if __name__ == '__main__':
