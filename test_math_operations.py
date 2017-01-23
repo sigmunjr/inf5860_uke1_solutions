@@ -67,14 +67,14 @@ def test_math7():
 def test_math8():
   mat = np.arange(16).reshape((4, 4))
   vec = np.arange(4)
-  assert (math8(mat, vec) == np.array([[ 0,  1,  4,  9],
-       [ 0,  5, 12, 21],
-       [ 0,  9, 20, 33],
-       [ 0, 13, 28, 45]])).all()
-  assert (math8(mat.T, vec) == np.array([[ 0,  4, 16, 36],
-       [ 0,  5, 18, 39],
-       [ 0,  6, 20, 42],
-       [ 0,  7, 22, 45]])).all()
+  assert (math8(mat, vec) == np.array([[ 0,  2,  4,  6],
+       [ 4,  6,  8, 10],
+       [ 8, 10, 12, 14],
+       [12, 14, 16, 18]])).all()
+  assert (math8(mat.T, vec) == np.array([[ 0,  5, 10, 15],
+       [ 1,  6, 11, 16],
+       [ 2,  7, 12, 17],
+       [ 3,  8, 13, 18]])).all()
 
 
 def test_math9():
